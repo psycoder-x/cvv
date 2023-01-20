@@ -104,12 +104,12 @@ bool cvv_ct_lt(T c, T d) {
 #endif
 #ifndef override_cvv_ct_move
 void cvv_ct_move(T *dst, const T *src, size_t n) {
-  return memmove(dst, src, n * sizeof(T));
+  memmove(dst, src, n * sizeof(T));
 }
 #endif
 #ifndef override_cvv_ct_copy
 void cvv_ct_copy(T *dst, const T *src, size_t n) {
-  return memcpy(dst, src, n * sizeof(T));
+  memcpy(dst, src, n * sizeof(T));
 }
 #endif
 #ifndef override_cvv_ct_compare

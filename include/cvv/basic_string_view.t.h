@@ -117,7 +117,7 @@ bool cvv_bsv_empty(cvv_bsv self);
 ----------------------------------------------------------------*/
 /* Moves the start of the view forward by count characters */
 cvv_bsv cvv_bsv_remove_prefix(cvv_bsv self, size_t count);
-/* Moves the End of the view back by count characters */
+/* Moves the end of the view back by count characters */
 cvv_bsv cvv_bsv_remove_suffix(cvv_bsv self, size_t count);
 /*----------------------------------------------------------------
   Operations
@@ -153,7 +153,7 @@ size_t cvv_bsv_find_last_not_of(cvv_bsv self, cvv_bsv chars);
 ----------------------------------*/
 #ifndef override_cvv_bsv_new
 cvv_bsv cvv_bsv_new() {
-  return (cvv_bsv) { .data = NULL, .size = 0 };
+  return cvv_bsv_new_array(NULL, 0);
 }
 #endif
 #ifndef override_cvv_bsv_new_copy
@@ -173,7 +173,7 @@ cvv_bsv cvv_bsv_new_sz(const T *sz) {
 #endif
 #ifndef override_cvv_bsv_new_char
 cvv_bsv cvv_bsv_new_char(const T *ch) {
-  return (cvv_bsv) { .data = ch, .size = 1 };
+  return cvv_bsv_new_array(ch, 1);
 }
 #endif
 /*--------------------------------
@@ -224,18 +224,12 @@ T cvv_bsv_at(cvv_bsv self, size_t pos) {
 #endif
 #ifndef override_cvv_bsv_front
 T cvv_bsv_front(cvv_bsv self) {
-  if (self.size == 0) {
-    return cvv_ct_null();
-  }
-  return self.data[0];
+  return cvv_bsv_at(self, 0);
 }
 #endif
 #ifndef override_cvv_bsv_back
 T cvv_bsv_back(cvv_bsv self) {
-  if (self.size == 0) {
-    return cvv_ct_null();
-  }
-  return self.data[self.size - 1];
+  return cvv_bsv_at(self, self.size - 1);
 }
 #endif
 #ifndef override_cvv_bsv_data
@@ -297,12 +291,18 @@ int cvv_bsv_compare(cvv_bsv self, cvv_bsv other) {
 #endif
 #ifndef override_cvv_bsv_starts_with
 bool cvv_bsv_starts_with(cvv_bsv self, cvv_bsv prefix) {
+  if (self.size < prefix.size) {
+    return false;
+  }
   cvv_bsv self_prefix = cvv_bsv_substr(self, 0, prefix.size);
   return cvv_bsv_compare(self_prefix, prefix) == 0;
 }
 #endif
 #ifndef override_cvv_bsv_ends_with
 bool cvv_bsv_ends_with(cvv_bsv self, cvv_bsv suffix) {
+  if (self.size < suffix.size) {
+    return false;
+  }
   size_t pos = self.size - suffix.size;
   cvv_bsv self_suffix = cvv_bsv_substr(self, pos, suffix.size);
   return cvv_bsv_compare(self_suffix, suffix) == 0;
@@ -310,7 +310,7 @@ bool cvv_bsv_ends_with(cvv_bsv self, cvv_bsv suffix) {
 #endif
 #ifndef override_cvv_bsv_contains
 bool cvv_bsv_contains(cvv_bsv self, cvv_bsv substring) {
-  return cvv_bsv_find(self, substring) != npos;
+  return cvv_bsv_find(self, substring) != cvv_npos;
 }
 #endif
 #ifndef override_cvv_bsv_find

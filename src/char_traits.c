@@ -36,10 +36,10 @@ bool cvv_ct_eq(char c, char d) {
 bool cvv_ct_lt(char c, char d) {
   return (unsigned char)c < (unsigned char)d;
 }
-void cvv_ct_assign(T CVV_REF r, T c) {
+void cvv_ct_assign(char CVV_REF r, char c) {
   *r = c;
 }
-void cvv_ct_assign_array(T *p, size_t n, T c) {
+void cvv_ct_assign_array(char *p, size_t n, char c) {
   memset(p, c, n);
 }
 /*----------------------------------------------------------------

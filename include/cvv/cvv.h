@@ -22,7 +22,8 @@ See End of file for license information
 /* Not a position */
 #define cvv_npos ((size_t)-1)
 /* Concatenation of macros */
-#define CVV_CAT(A, B) A # B
+#define CVV_CAT_STATIC(A, B) A ## B
+#define CVV_CAT(A, B) CVV_CAT_STATIC(A, B)
 /* Reference mark */
 #define CVV_REF *
 /* End of CVV_CVV_H_INCLUDED */
