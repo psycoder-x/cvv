@@ -6,6 +6,9 @@ Common C++ features and frequently used features.
   License
 See End of file for license information
 */
+/* Include guard */
+#ifndef CVV_CVV_H_INCLUDED
+#define CVV_CVV_H_INCLUDED
 /*----------------------------------------------------------------
   Dependencies
 ----------------------------------------------------------------*/
@@ -22,6 +25,8 @@ See End of file for license information
 #define CVV_CAT(A, B) A # B
 /* Reference mark */
 #define CVV_REF *
+/* End of CVV_CVV_H_INCLUDED */
+#endif
 /*----------------------------------------------------------------
   License
 ----------------------------------------------------------------*/
