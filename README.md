@@ -19,6 +19,10 @@ Each reference `&` will be replaced with a pointer `*`.
 But each that pointer will be defined by name `CVV_REF` to save "reference meaning".
 However, each const reference like `const T &` will be replaced with `T` for simplicity
 
+### .t.h
+
+C headers that contain templates have the extension `.t.h`
+
 ### cvv_max_size
 
 The value of `max_size()` for all C++ classes
