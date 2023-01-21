@@ -112,12 +112,21 @@ int main() {
   answer(0, cvv_sv_compare(hello, cvv_sv_remove_suffix(hw, 7)) == 0);
   answer(1, cvv_sv_compare(hw, cvv_sv_remove_suffix(hw, 0)) == 0);
   answer(2, cvv_sv_empty(cvv_sv_remove_suffix(hw, cvv_sv_size(hw))));
-
-  // TODO: test cvv_sv_begin, cvv_sv_end, cvv_sv_rbegin, cvv_sv_rend
-
-  // TODO: test cvv_bsv_find_first_of, cvv_bsv_find_last_of
-
-  // TODO: test cvv_bsv_find_first_not_of, cvv_bsv_find_last_not_of
+  printf("\ncvv_sv_begin, cvv_sv_end, cvv_sv_rbegin, cvv_sv_rend\n");
+  answer(0, cvv_sv_begin(hw) == hw_sz);
+  answer(1, cvv_sv_rend(hw) + 1 == hw_sz);
+  answer(2, cvv_sv_rbegin(hw) == hw_sz - 1 + cvv_sv_size(hw));
+  answer(3, cvv_sv_end(hw) == hw_sz + cvv_sv_size(hw));
+  printf("\n%s\n", "cvv_sv_find_first_of, cvv_sv_find_first_not_of");
+  answer(0, cvv_sv_find_first_of(hw, nothing) == cvv_npos);
+  answer(1, cvv_sv_find_first_of(hw, world) == 2);
+  answer(2, cvv_sv_find_first_not_of(hw, nothing) == 0);
+  answer(3, cvv_sv_find_first_not_of(hw, hello) == 6);
+  printf("\n%s\n", "cvv_sv_find_last_of, cvv_sv_find_last_not_of");
+  answer(0, cvv_sv_find_last_of(hw, nothing) == cvv_npos);
+  answer(1, cvv_sv_find_last_of(hw, hello) == 10);
+  answer(2, cvv_sv_find_last_not_of(hw, nothing) == 12);
+  answer(3, cvv_sv_find_last_not_of(hw, world) == 6);
 
   return 0;
 }
